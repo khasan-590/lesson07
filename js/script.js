@@ -45,28 +45,22 @@ let  money,
 			for ( let key in appData.expenses) {
 				appData.expensesMonth += appData.expenses[key];
 			}
-			
 		},
 		getBudget: function () {
-
-			appData.budgetMonth = appData.budget - appData.expensesMonth  ;
-			 
-			 appData.budgetDay = (appData.budgetMonth / 30);
-			 return ;
+			appData.budgetMonth = appData.budget - appData.expensesMonth;
+			appData.budgetDay = Math.floor(appData.budgetMonth / 30);
 		},
+
 		getTargetMonth: function (){
 			let targetMonth = Math.ceil(appData.mission / appData.budgetMonth);
-
-			
 			if (targetMonth <= 0) {
 				console.log('цель не будет достигнута');
 		} else {
 				console.log('Цель будет достигнута');
 				appData.period = targetMonth;
 		}
-		
 		},
-		
+	
 		 getStatusIncome: function () {
 			if (appData.budgetDay >= 1200) {
 				return("У вас высокий уровень дохода");
