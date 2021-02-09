@@ -1,17 +1,20 @@
 "use strict";
 
+function isNumbers(n) {
+	return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+
 let  money,
 
 	start = function() {
 		do{
 			money = prompt('Ваш месячный доход?' , 5000);
 		}
-		while(isNaN(money)  || money === " "  || money === null);
+		while(!isNumbers(money)  || money === " "  || money === null);
 	};
 
-	function isNumbers(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-  }
+	
 
 	let appData = {
 		income: {},
@@ -23,7 +26,7 @@ let  money,
 		budgetDay: 0,
 		budgetMonth: 0,
 		expensesMonth: 0,
-		budget: money,
+		budget: start(),
 		asking: function() {
 			let addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую");
 			appData.addExpenses  =   addExpenses.toLowerCase().split(',');
@@ -33,13 +36,12 @@ let  money,
 			
 			for(let i = 0; i < 2; i++){
 				let tempExpenses = prompt('Введите обязательную статью расходов?');
-				
 					do{
-						sum = parseFloat(prompt('Во сколько это обойдётся?'));
+						sum = prompt('Во сколько это обойдётся?');
 					} while (!isNumbers(sum));//пока пользователь не введёт число
 					appData.expenses[tempExpenses] = +sum;
 			}
-			return sum;
+			
 		},
 		getExpensesMonth: function (){
 			for ( let key in appData.expenses) {
@@ -53,11 +55,10 @@ let  money,
 
 		getTargetMonth: function (){
 			let targetMonth = Math.ceil(appData.mission / appData.budgetMonth);
-			if (targetMonth <= 0) {
-				console.log('цель не будет достигнута');
+			if (targetMonth > 0) {
+				return "Цель будет достигнута через " + targetMonth + " месяцев";
 		} else {
-				console.log('Цель будет достигнута');
-				appData.period = targetMonth;
+				return 'Цель не будет достигнута';
 		}
 		},
 	
@@ -81,14 +82,16 @@ let  money,
 	appData.asking();
 	appData.getExpensesMonth();
 	appData.getBudget();
-	appData.getTargetMonth();
+	console.log(appData.getTargetMonth());
 // 
-	console.log(appData.expenses);
 
 	
 	console.log( 'Расходы за месяц ' + appData.expensesMonth);
-	console.log(  'за ' + appData.period + ' месяцев, будет достигнута цель');
 	console.log(appData.getStatusIncome());
-	for (let key in appData) {
-    console.log(`Наша программа включает в себя данные: ${key}`);
+	// for (let keys in appData) {
+  //   console.log(`Наша программа    включает в себя данные: ${appData[keys]}`);
+	// }
+	for (let keys in appData) {
+    console.log (keys + ' Наша программа    включает в себя данные ' + appData[keys]);
 	}
+
