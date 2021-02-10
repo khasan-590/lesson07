@@ -14,7 +14,7 @@ let  money,
 		while(!isNumbers(money)  || money === " "  || money === null);
 	};
 
-	
+	start();
 
 	let appData = {
 		income: {},
@@ -26,7 +26,7 @@ let  money,
 		budgetDay: 0,
 		budgetMonth: 0,
 		expensesMonth: 0,
-		budget: start(),
+		budget: money,
 		asking: function() {
 			let addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую");
 			appData.addExpenses  =   addExpenses.toLowerCase().split(',');
@@ -74,24 +74,17 @@ let  money,
 			}
 		},
 		
-
-		
 	};
 
-	start();
+	
 	appData.asking();
 	appData.getExpensesMonth();
 	appData.getBudget();
 	console.log(appData.getTargetMonth());
-// 
-
-	
 	console.log( 'Расходы за месяц ' + appData.expensesMonth);
 	console.log(appData.getStatusIncome());
-	// for (let keys in appData) {
-  //   console.log(`Наша программа    включает в себя данные: ${appData[keys]}`);
-	// }
+	
 	for (let keys in appData) {
-    console.log (keys + ' Наша программа    включает в себя данные ' + appData[keys]);
+		console.log("Наша программа    включает в себя данные." + keys + " = " + appData[keys] + []);
 	}
 
